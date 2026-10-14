@@ -1,11 +1,7 @@
 #include "ImageManager.hpp"
 #include "ImageOverlay.hpp"
 
-#ifdef GEODE_IS_WINDOWS
-    #define WIN32_LEAN_AND_MEAN
-    #include <windows.h>
-    #include <commdlg.h>
-#endif
+#include <Geode/utils/file.hpp>
 
 using namespace geode::prelude;
 
@@ -217,42 +213,19 @@ void ImageManager::openImagesFolder() {
 }
 
 bool ImageManager::pickAndImportImage() {
-#ifdef GEODE_IS_WINDOWS
-    wchar_t filename[MAX_PATH] = L"";
-
-    OPENFILENAMEW ofn;
-    ZeroMemory(&ofn, sizeof(ofn));
-    ofn.lStructSize = sizeof(ofn);
-    ofn.hwndOwner = nullptr;
-    ofn.lpstrFilter = L"Изображения (*.png;*.jpg;*.jpeg;*.bmp;*.webp)\0*.png;*.jpg;*.jpeg;*.bmp;*.webp\0Все файлы (*.*)\0*.*\0\0";
-    ofn.lpstrFile = filename;
-    ofn.nMaxFile = MAX_PATH;
-    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
-
-    if (GetOpenFileNameW(&ofn)) {
-        std::filesystem::path pickedPath(filename);
-        return importImage(pickedPath);
-    }
-    return false;
-#else
-    // Cross-platform fallback using Geode's async file picker
-    geode::utils::file::FilePickOptions options;
+    file::FilePickOptions options;
     options.filters.push_back({
         "Images",
         { "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.webp" }
     });
 
-    geode::utils::file::pick(geode::utils::file::PickMode::OpenFile, options)
-        .listen([this](geode::utils::file::PickResult* result) {
+    file::pick(file::PickMode::OpenFile, options)
+        .listen([this](Result<std::filesystem::path>* result) {
             if (result && result->isOk()) {
-                auto opt = result->unwrap();
-                if (opt.has_value()) {
-                    this->importImage(*opt);
-                }
+                this->importImage(result->unwrap());
             }
         });
     return true;
-#endif
 }
 
 cocos2d::CCTexture2D* ImageManager::loadTexture(std::filesystem::path const& path) {

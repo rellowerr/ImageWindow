@@ -87,7 +87,7 @@ bool DragOverlayLayer::init(std::function<void()> onCloseCallback) {
 
     // Top control buttons menu
     auto menu = CCMenu::create();
-    menu->setPosition(CCPointZero);
+    menu->setPosition(ccp(0, 0));
     this->addChild(menu, 15);
 
     // Save button (top right)

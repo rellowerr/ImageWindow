@@ -215,7 +215,7 @@ void ImageWindowPopup::refreshLibraryList() {
 
         // Row menu for buttons
         auto rowMenu = CCMenu::create();
-        rowMenu->setPosition(CCPointZero);
+        rowMenu->setPosition(ccp(0, 0));
         content->addChild(rowMenu);
 
         // Select button

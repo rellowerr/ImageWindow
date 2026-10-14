@@ -82,21 +82,6 @@ class $modify(IWPlayLayer, PlayLayer) {
             m_fields->m_imageOverlay->updateOverlay();
         }
     }
-
-    void keyDown(enumKeyCodes key) {
-        // F8 hotkey: quick toggle overlay on/off
-        if (key == KEY_F8) {
-            bool enabled = Mod::get()->getSettingValue<bool>("enabled");
-            Mod::get()->setSettingValue("enabled", !enabled);
-            ImageOverlay::updateAll();
-
-            auto msg = !enabled ? "ImageWindow: Включено" : "ImageWindow: Выключено";
-            Notification::create(msg, NotificationIcon::Info)->show();
-            return;
-        }
-
-        PlayLayer::keyDown(key);
-    }
 };
 
 // Hook PauseLayer to provide a convenient in-level button
@@ -139,8 +124,8 @@ class $modify(IWPauseLayer, PauseLayer) {
 
 // Hook LevelEditorLayer if enabled in settings
 class $modify(IWLevelEditorLayer, LevelEditorLayer) {
-    bool init(GJGameLevel* level) {
-        if (!LevelEditorLayer::init(level)) return false;
+    bool init(GJGameLevel* level, bool noUI) {
+        if (!LevelEditorLayer::init(level, noUI)) return false;
 
         if (Mod::get()->getSettingValue<bool>("show-in-editor")) {
             auto overlay = ImageOverlay::create();
