@@ -56,52 +56,6 @@
 
 ---
 
-## 🛠️ Структура проекта
-
-```text
-soul/
-├── .github/workflows/
-│   └── build.yml               # Автоматическая сборка мода через GitHub Actions
-├── src/
-│   ├── main.cpp                # Точка входа мода, хуки PlayLayer, PauseLayer, Editor
-│   ├── ImageManager.hpp/.cpp   # Менеджер файлов, загрузчик текстур, системный диалог выбора файлов
-│   ├── ImageOverlay.hpp/.cpp   # Нода отображения изображения поверх экрана (трансформы, HUD)
-│   ├── DragOverlayLayer.hpp/.cpp# Слой интерактивного перемещения картинки мышью
-│   └── ImageWindowPopup.hpp/.cpp# Главное окно мода с 3 вкладками (Библиотека, Размер/HUD, Настройки)
-├── CMakeLists.txt              # Конфигурация сборки CMake для Geode
-├── mod.json                    # Манифест мода, настройки и метаданные
-├── about.md                    # Описание для загрузчика модов Geode
-└── changelog.md                # История версий
-```
-
----
-
-## 📦 Как собрать и установить мод
-
-### Способ 1: Локальная сборка через Geode CLI
-
-1. Установите [Geode CLI](https://docs.geode-sdk.org/getting-started/install-cli):
-   ```powershell
-   winget install GeodeSDK.GeodeCLI
-   ```
-2. Установите необходимые компоненты (Visual Studio Build Tools с C++20).
-3. Настройте SDK:
-   ```powershell
-   geode sdk install
-   ```
-4. Соберите мод:
-   ```powershell
-   geode build
-   ```
-   Файл мода `low.image_window.geode` появится в папке `build/` или сразу установится в игру командой:
-   ```powershell
-   geode build --install
-   ```
-
-### Способ 2: Автоматическая сборка через GitHub (без установки компилятора)
-
-1. Загрузите этот проект в свой репозиторий на GitHub.
-2. Во вкладке **Actions** автоматически запустится рабочий процесс сборки.
 3. После завершения скачайте готовый артефакт с файлом `.geode` и поместите его в папку `geode/mods/` вашей Geometry Dash:
    ```text
    C:\Program Files (x86)\Steam\steamapps\common\Geometry Dash\geode\mods\
