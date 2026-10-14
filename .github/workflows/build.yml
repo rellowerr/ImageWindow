@@ -29,6 +29,7 @@ jobs:
           git clone --depth 1 https://github.com/geode-sdk/geode.git "$env:USERPROFILE\geode-sdk"
           & "$env:USERPROFILE\.geode-cli\geode.exe" profile add --name default "C:\Program Files (x86)\Steam\steamapps\common\Geometry Dash"
           & "$env:USERPROFILE\.geode-cli\geode.exe" sdk set-path "$env:USERPROFILE\geode-sdk"
+          & "$env:USERPROFILE\.geode-cli\geode.exe" sdk install-binaries --platform win
           "GEODE_SDK=$env:USERPROFILE\geode-sdk" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
       - name: Build Mod
