@@ -7,7 +7,7 @@
 #include <Geode/binding/CCMenuItemToggler.hpp>
 #include <Geode/binding/ButtonSprite.hpp>
 
-class ImageWindowPopup : public geode::Popup<> {
+class ImageWindowPopup : public geode::Popup {
 private:
     int m_currentTab = 0;
 
@@ -44,7 +44,7 @@ private:
     ButtonSprite* m_zOrderBtnSpr = nullptr;
     cocos2d::CCLabelBMFont* m_activeFileInfoLabel = nullptr;
 
-    bool setup() override;
+    bool init(float width, float height);
 
     void setupTabs();
     void setupLibraryTab();

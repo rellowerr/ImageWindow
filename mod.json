@@ -1,7 +1,7 @@
 {
-  "geode": "4.0.0",
+  "geode": "5.0.0",
   "gd": {
-    "win": "*"
+    "win": "2.2081"
   },
   "version": "v1.0.0",
   "id": "low.image_window",
