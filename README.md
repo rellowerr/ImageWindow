@@ -54,9 +54,3 @@
    - Кнопка в меню паузы редактора (`EditorPauseLayer`).
    - Кнопка в главном меню игры (`MenuLayer`).
 
----
-
-3. После завершения скачайте готовый артефакт с файлом `.geode` и поместите его в папку `geode/mods/` вашей Geometry Dash:
-   ```text
-   C:\Program Files (x86)\Steam\steamapps\common\Geometry Dash\geode\mods\
-   ```
