@@ -10,6 +10,9 @@ ImageWindowPopup* ImageWindowPopup::s_instance = nullptr;
 void ImageWindowPopup::refreshIfOpen() {
     if (s_instance) {
         s_instance->refreshLibraryList();
+        if (s_instance->m_currentTab == 2) {
+            s_instance->updateSettingsControls();
+        }
     }
 }
 

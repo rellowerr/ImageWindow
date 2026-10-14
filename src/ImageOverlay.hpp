@@ -14,6 +14,7 @@ public:
     static ImageOverlay* create();
     static ImageOverlay* get() { return s_instance; }
     static void updateAll();
+    static void toggle();
 
     bool init() override;
     ~ImageOverlay() override;

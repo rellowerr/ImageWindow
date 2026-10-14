@@ -3,7 +3,7 @@
   "gd": {
     "win": "2.2081"
   },
-  "version": "v1.0.1",
+  "version": "v1.0.2",
   "id": "low.image_window",
   "name": "ImageWindow",
   "developer": "Rellower",
@@ -22,6 +22,13 @@
       "description": "Toggles the image overlay on or off.",
       "type": "bool",
       "default": true
+    },
+    "toggle-keybind": {
+      "name": "Toggle Keybind",
+      "description": "Keybind to quickly show or hide the image overlay (Default: F8).",
+      "type": "keybind",
+      "default": "F8",
+      "category": "universal"
     },
     "scale": {
       "name": "Scale",

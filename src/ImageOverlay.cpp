@@ -1,5 +1,6 @@
 #include "ImageOverlay.hpp"
 #include "ImageManager.hpp"
+#include "ImageWindowPopup.hpp"
 
 using namespace geode::prelude;
 
@@ -50,6 +51,20 @@ ImageOverlay::~ImageOverlay() {
 void ImageOverlay::updateAll() {
     if (s_instance) {
         s_instance->updateOverlay();
+    }
+}
+
+void ImageOverlay::toggle() {
+    bool current = Mod::get()->getSettingValue<bool>("enabled");
+    bool next = !current;
+    Mod::get()->setSettingValue("enabled", next);
+    ImageOverlay::updateAll();
+    ImageWindowPopup::refreshIfOpen();
+
+    if (next && !ImageManager::get()->getActiveTexture()) {
+        Notification::create("Image: Enabled (No image selected)", NotificationIcon::Warning, 1.0f)->show();
+    } else {
+        Notification::create(next ? "Image: Shown" : "Image: Hidden", NotificationIcon::Info, 0.8f)->show();
     }
 }
 

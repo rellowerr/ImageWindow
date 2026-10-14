@@ -137,7 +137,13 @@ class $modify(IWLevelEditorLayer, LevelEditorLayer) {
     }
 };
 
-// Early initialization for ImageManager
+// Early initialization for ImageManager and Keybind listener
 $on_mod(Loaded) {
     ImageManager::get()->init();
+
+    listenForKeybindSettingPresses("toggle-keybind", [](Keybind const&, bool down, bool repeat, double) {
+        if (down && !repeat) {
+            ImageOverlay::toggle();
+        }
+    });
 }

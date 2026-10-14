@@ -13,6 +13,7 @@
   - Rotation slider (0° to 360°)
   - Flip Horizontal & Flip Vertical toggles
 - **Translucent HUD Window**: Optional dark sleek HUD frame with border.
+- **Toggle Keybind**: Press **F8** (configurable in mod settings) to instantly hide or show the active overlay.
 - **Smart Hiding**:
   - Hide automatically on pause
   - Hide automatically on death
@@ -26,3 +27,4 @@
 2. Click the **ImageWindow** palette button.
 3. In the **Library** tab, click **+ Add Image** or **Folder** to import images.
 4. Select your active image, then switch to **HUD & Size** to customize size, position, and opacity.
+5. Press **F8** during gameplay to toggle image visibility on the fly!
