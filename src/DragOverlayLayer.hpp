@@ -2,10 +2,9 @@
 
 #include <Geode/Geode.hpp>
 #include <Geode/binding/ButtonSprite.hpp>
-#include <Geode/binding/FLAlertLayer.hpp>
 #include <functional>
 
-class DragOverlayLayer : public FLAlertLayer {
+class DragOverlayLayer : public cocos2d::CCLayerColor {
 private:
     std::function<void()> m_onCloseCallback;
     cocos2d::CCSize m_winSize;
@@ -28,6 +27,7 @@ private:
 
 public:
     static DragOverlayLayer* create(std::function<void()> onCloseCallback = nullptr);
+    void show();
 
     void registerWithTouchDispatcher() override;
     bool ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event) override;

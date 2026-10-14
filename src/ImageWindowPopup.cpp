@@ -5,6 +5,14 @@
 
 using namespace geode::prelude;
 
+ImageWindowPopup* ImageWindowPopup::s_instance = nullptr;
+
+void ImageWindowPopup::refreshIfOpen() {
+    if (s_instance) {
+        s_instance->refreshLibraryList();
+    }
+}
+
 ImageWindowPopup* ImageWindowPopup::create() {
     auto ret = new ImageWindowPopup();
     if (ret && ret->init(440.f, 290.f)) {
@@ -15,8 +23,16 @@ ImageWindowPopup* ImageWindowPopup::create() {
     return nullptr;
 }
 
+ImageWindowPopup::~ImageWindowPopup() {
+    if (s_instance == this) {
+        s_instance = nullptr;
+    }
+}
+
 bool ImageWindowPopup::init(float width, float height) {
     if (!Popup::init(width, height)) return false;
+
+    s_instance = this;
 
     this->setTitle("ImageWindow", "goldFont.fnt", 0.75f, 22.f);
 
@@ -229,7 +245,7 @@ void ImageWindowPopup::refreshLibraryList() {
         }
         auto selBtn = CCMenuItemSpriteExtra::create(selSpr, this, menu_selector(ImageWindowPopup::onSelectImage));
         selBtn->setPosition(ccp(300.f, itemY + itemHeight / 2.f));
-        selBtn->setUserObject(CCString::create(item.filename));
+        selBtn->setUserObject(CCString::create(item.filename.c_str()));
         rowMenu->addChild(selBtn);
 
         // Delete button
@@ -238,7 +254,7 @@ void ImageWindowPopup::refreshLibraryList() {
             delSpr->setScale(0.6f);
             auto delBtn = CCMenuItemSpriteExtra::create(delSpr, this, menu_selector(ImageWindowPopup::onDeleteImage));
             delBtn->setPosition(ccp(358.f, itemY + itemHeight / 2.f));
-            delBtn->setUserObject(CCString::create(item.filename));
+            delBtn->setUserObject(CCString::create(item.filename.c_str()));
             rowMenu->addChild(delBtn);
         }
     }
@@ -247,11 +263,7 @@ void ImageWindowPopup::refreshLibraryList() {
 }
 
 void ImageWindowPopup::onAddImage(CCObject*) {
-    bool success = ImageManager::get()->pickAndImportImage();
-    if (success) {
-        Notification::create("Фото успешно добавлено!", NotificationIcon::Success)->show();
-        refreshLibraryList();
-    }
+    ImageManager::get()->pickAndImportImage();
 }
 
 void ImageWindowPopup::onOpenFolder(CCObject*) {

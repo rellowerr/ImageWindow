@@ -98,7 +98,7 @@ class $modify(IWPauseLayer, PauseLayer) {
             btnSpr->setScale(0.85f);
         }
 
-        auto btn = CCMenuItemExt::create(btnSpr, [](CCObject*) {
+        auto btn = CCMenuItemExt::createSpriteExtra(btnSpr, [](auto) {
             ImageWindowPopup::create()->show();
         });
         btn->setID("image-window-btn"_spr);
@@ -151,7 +151,7 @@ class $modify(IWEditorPauseLayer, EditorPauseLayer) {
             btnSpr->setScale(0.85f);
         }
 
-        auto btn = CCMenuItemExt::create(btnSpr, [](CCObject*) {
+        auto btn = CCMenuItemExt::createSpriteExtra(btnSpr, [](auto) {
             ImageWindowPopup::create()->show();
         });
         btn->setID("image-window-btn"_spr);
@@ -186,7 +186,7 @@ class $modify(IWMenuLayer, MenuLayer) {
                 btnSpr->setScale(0.85f);
             }
 
-            auto btn = CCMenuItemExt::create(btnSpr, [](CCObject*) {
+            auto btn = CCMenuItemExt::createSpriteExtra(btnSpr, [](auto) {
                 ImageWindowPopup::create()->show();
             });
             btn->setID("image-window-btn"_spr);

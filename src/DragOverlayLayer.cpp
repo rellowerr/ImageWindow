@@ -15,7 +15,10 @@ DragOverlayLayer* DragOverlayLayer::create(std::function<void()> onCloseCallback
 }
 
 bool DragOverlayLayer::init(std::function<void()> onCloseCallback) {
-    if (!FLAlertLayer::init(140)) return false;
+    if (!CCLayerColor::initWithColor({ 0, 0, 0, 140 })) return false;
+
+    this->setTouchEnabled(true);
+    this->setKeypadEnabled(true);
 
     m_onCloseCallback = onCloseCallback;
     m_winSize = CCDirector::sharedDirector()->getWinSize();
@@ -106,6 +109,13 @@ bool DragOverlayLayer::init(std::function<void()> onCloseCallback) {
     return true;
 }
 
+void DragOverlayLayer::show() {
+    auto scene = CCDirector::sharedDirector()->getRunningScene();
+    if (scene) {
+        scene->addChild(this, 1000);
+    }
+}
+
 void DragOverlayLayer::registerWithTouchDispatcher() {
     CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, -500, true);
 }
@@ -143,7 +153,6 @@ void DragOverlayLayer::ccTouchMoved(CCTouch* touch, CCEvent* event) {
     auto loc = touch->getLocation();
     m_currentPos = loc - m_touchOffset;
 
-    // Clamp inside screen bounds
     m_currentPos.x = std::clamp(m_currentPos.x, 0.f, m_winSize.width);
     m_currentPos.y = std::clamp(m_currentPos.y, 0.f, m_winSize.height);
 
@@ -176,6 +185,7 @@ void DragOverlayLayer::onCancel(CCObject*) {
 
 void DragOverlayLayer::keyBackClicked() {
     this->setTouchEnabled(false);
+    this->setKeypadEnabled(false);
     this->removeFromParentAndCleanup(true);
 
     if (m_onCloseCallback) {

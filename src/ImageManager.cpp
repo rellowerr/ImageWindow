@@ -1,7 +1,10 @@
 #include "ImageManager.hpp"
 #include "ImageOverlay.hpp"
+#include "ImageWindowPopup.hpp"
 
 #include <Geode/utils/file.hpp>
+#include <Geode/utils/async.hpp>
+#include <Geode/ui/Notification.hpp>
 
 using namespace geode::prelude;
 
@@ -164,6 +167,7 @@ bool ImageManager::importImage(std::filesystem::path const& sourcePath) {
     // Check if the user selected a file already inside the library folder
     if (std::filesystem::equivalent(sourcePath, targetPath, ec)) {
         setActiveImage(targetFilename.string());
+        ImageWindowPopup::refreshIfOpen();
         return true;
     }
 
@@ -184,6 +188,7 @@ bool ImageManager::importImage(std::filesystem::path const& sourcePath) {
 
     refreshImages();
     setActiveImage(targetFilename.string());
+    ImageWindowPopup::refreshIfOpen();
     return true;
 }
 
@@ -213,18 +218,25 @@ void ImageManager::openImagesFolder() {
 }
 
 bool ImageManager::pickAndImportImage() {
-    file::FilePickOptions options;
-    options.filters.push_back({
-        "Images",
-        { "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.webp" }
-    });
-
-    file::pick(file::PickMode::OpenFile, options)
-        .listen([this](Result<std::filesystem::path>* result) {
-            if (result && result->isOk()) {
-                this->importImage(result->unwrap());
+    file::FilePickOptions options {
+        .filters = {
+            file::FilePickOptions::Filter {
+                .description = "Images",
+                .files = { "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.webp" },
             }
-        });
+        }
+    };
+
+    geode::async::spawn(file::pick(file::PickMode::OpenFile, options), [this](Result<std::optional<std::filesystem::path>> result) {
+        if (result.isOk()) {
+            auto const& opt = result.unwrap();
+            if (opt.has_value()) {
+                if (this->importImage(opt.value())) {
+                    Notification::create("Фото успешно добавлено!", NotificationIcon::Success)->show();
+                }
+            }
+        }
+    });
     return true;
 }
 

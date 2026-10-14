@@ -3,12 +3,15 @@
 #include <Geode/Geode.hpp>
 #include <Geode/ui/Popup.hpp>
 #include <Geode/ui/ScrollLayer.hpp>
+#include <Geode/ui/Notification.hpp>
 #include <Geode/binding/Slider.hpp>
 #include <Geode/binding/CCMenuItemToggler.hpp>
 #include <Geode/binding/ButtonSprite.hpp>
 
 class ImageWindowPopup : public geode::Popup {
 private:
+    static ImageWindowPopup* s_instance;
+
     int m_currentTab = 0;
 
     // Tab buttons
@@ -45,6 +48,7 @@ private:
     cocos2d::CCLabelBMFont* m_activeFileInfoLabel = nullptr;
 
     bool init(float width, float height);
+    ~ImageWindowPopup() override;
 
     void setupTabs();
     void setupLibraryTab();
@@ -81,8 +85,9 @@ private:
 
     void updateTransformControls();
     void updateSettingsControls();
-    void refreshLibraryList();
 
 public:
     static ImageWindowPopup* create();
+    static void refreshIfOpen();
+    void refreshLibraryList();
 };
