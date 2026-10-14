@@ -8,8 +8,10 @@
   "name": "ImageWindow",
   "developer": "Rellower",
   "description": "Display custom images, photos, and references on your screen while playing levels or in the editor. Features an image gallery, drag mode, scale, opacity, and HUD controls.",
+  "repository": "https://github.com/rellowerr/ImageWindow",
   "links": {
-    "community": "https://discord.gg/geode"
+    "community": "https://discord.gg/geode",
+    "source": "https://github.com/rellowerr/ImageWindow"
   },
   "tags": [
     "utility",
