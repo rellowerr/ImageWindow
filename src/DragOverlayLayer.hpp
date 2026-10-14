@@ -1,6 +1,8 @@
 #pragma once
 
 #include <Geode/Geode.hpp>
+#include <Geode/binding/ButtonSprite.hpp>
+#include <Geode/binding/FLAlertLayer.hpp>
 #include <functional>
 
 class DragOverlayLayer : public FLAlertLayer {

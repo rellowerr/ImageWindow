@@ -4,6 +4,8 @@
 #include <Geode/modify/LevelEditorLayer.hpp>
 #include <Geode/modify/EditorPauseLayer.hpp>
 #include <Geode/modify/MenuLayer.hpp>
+#include <Geode/binding/ButtonSprite.hpp>
+#include <Geode/binding/EditorUI.hpp>
 
 #include "ImageManager.hpp"
 #include "ImageOverlay.hpp"
@@ -96,9 +98,9 @@ class $modify(IWPauseLayer, PauseLayer) {
             btnSpr->setScale(0.85f);
         }
 
-        auto btn = CCMenuItemSpriteExtra::create(
-            btnSpr, this, menu_selector(IWPauseLayer::onImageWindowBtn)
-        );
+        auto btn = CCMenuItemExt::create(btnSpr, [](CCObject*) {
+            ImageWindowPopup::create()->show();
+        });
         btn->setID("image-window-btn"_spr);
 
         // Find standard menu or create fallback
@@ -115,10 +117,6 @@ class $modify(IWPauseLayer, PauseLayer) {
 
         menu->addChild(btn);
         menu->updateLayout();
-    }
-
-    void onImageWindowBtn(CCObject*) {
-        ImageWindowPopup::create()->show();
     }
 };
 
@@ -153,9 +151,9 @@ class $modify(IWEditorPauseLayer, EditorPauseLayer) {
             btnSpr->setScale(0.85f);
         }
 
-        auto btn = CCMenuItemSpriteExtra::create(
-            btnSpr, this, menu_selector(IWEditorPauseLayer::onImageWindowBtn)
-        );
+        auto btn = CCMenuItemExt::create(btnSpr, [](CCObject*) {
+            ImageWindowPopup::create()->show();
+        });
         btn->setID("image-window-btn"_spr);
 
         auto menu = this->getChildByID("bottom-menu");
@@ -171,10 +169,6 @@ class $modify(IWEditorPauseLayer, EditorPauseLayer) {
 
         menu->addChild(btn);
         menu->updateLayout();
-    }
-
-    void onImageWindowBtn(CCObject*) {
-        ImageWindowPopup::create()->show();
     }
 };
 
@@ -192,19 +186,15 @@ class $modify(IWMenuLayer, MenuLayer) {
                 btnSpr->setScale(0.85f);
             }
 
-            auto btn = CCMenuItemSpriteExtra::create(
-                btnSpr, this, menu_selector(IWMenuLayer::onImageWindowBtn)
-            );
+            auto btn = CCMenuItemExt::create(btnSpr, [](CCObject*) {
+                ImageWindowPopup::create()->show();
+            });
             btn->setID("image-window-btn"_spr);
             bottomMenu->addChild(btn);
             bottomMenu->updateLayout();
         }
 
         return true;
-    }
-
-    void onImageWindowBtn(CCObject*) {
-        ImageWindowPopup::create()->show();
     }
 };
 

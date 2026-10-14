@@ -3,6 +3,9 @@
 #include <Geode/Geode.hpp>
 #include <Geode/ui/Popup.hpp>
 #include <Geode/ui/ScrollLayer.hpp>
+#include <Geode/binding/Slider.hpp>
+#include <Geode/binding/CCMenuItemToggler.hpp>
+#include <Geode/binding/ButtonSprite.hpp>
 
 class ImageWindowPopup : public geode::Popup<> {
 private:
