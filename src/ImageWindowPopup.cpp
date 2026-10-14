@@ -7,7 +7,7 @@ using namespace geode::prelude;
 
 ImageWindowPopup* ImageWindowPopup::create() {
     auto ret = new ImageWindowPopup();
-    if (ret && ret->init(440.f, 290.f)) {
+    if (ret && ret->initAnchored(440.f, 290.f)) {
         ret->autorelease();
         return ret;
     }
@@ -15,9 +15,7 @@ ImageWindowPopup* ImageWindowPopup::create() {
     return nullptr;
 }
 
-bool ImageWindowPopup::init(float width, float height) {
-    if (!Popup::init(width, height)) return false;
-
+bool ImageWindowPopup::setup() {
     this->setTitle("ImageWindow", "goldFont.fnt", 0.75f, 22.f);
 
     // Setup tab container nodes

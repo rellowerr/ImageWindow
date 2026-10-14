@@ -25,13 +25,10 @@ jobs:
 
       - name: Build Mod
         uses: geode-sdk/build-geode-mod@main
-        with:
-          bindings: "geode-sdk/bindings"
-          bindings-ref: "main"
-          combine: true
+        id: build
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: ImageWindow-${{ matrix.config.name }}
-          path: build/*.geode
+          path: ${{ steps.build.outputs.build-output }}/*.geode
