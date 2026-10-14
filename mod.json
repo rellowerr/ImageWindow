@@ -3,11 +3,11 @@
   "gd": {
     "win": "2.2081"
   },
-  "version": "v1.0.0",
+  "version": "v1.0.1",
   "id": "low.image_window",
   "name": "ImageWindow",
-  "developer": "low",
-  "description": "Позволяет загружать изображения и выводить их поверх экрана во время игры в уровнях. Имеет встроенную библиотеку фото, перетаскивание мышью, настройку размера, прозрачности и положения.",
+  "developer": "Rellower",
+  "description": "Display custom images, photos, and references on your screen while playing levels or in the editor. Features an image gallery, drag mode, scale, opacity, and HUD controls.",
   "links": {
     "community": "https://discord.gg/geode"
   },
@@ -18,14 +18,14 @@
   ],
   "settings": {
     "enabled": {
-      "name": "Включить мод",
-      "description": "Включает или выключает отображение фото на экране.",
+      "name": "Enable Mod",
+      "description": "Toggles the image overlay on or off.",
       "type": "bool",
       "default": true
     },
     "scale": {
-      "name": "Масштаб (Scale)",
-      "description": "Размер изображения (0.1x до 3.0x).",
+      "name": "Scale",
+      "description": "Image size (0.1x to 3.0x).",
       "type": "float",
       "default": 1.0,
       "min": 0.1,
@@ -35,8 +35,8 @@
       }
     },
     "opacity": {
-      "name": "Прозрачность (Opacity)",
-      "description": "Прозрачность изображения (5% до 100%).",
+      "name": "Opacity",
+      "description": "Image opacity (5% to 100%).",
       "type": "float",
       "default": 1.0,
       "min": 0.05,
@@ -46,8 +46,8 @@
       }
     },
     "rotation": {
-      "name": "Поворот (Rotation)",
-      "description": "Угол поворота в градусах (0° - 360°).",
+      "name": "Rotation",
+      "description": "Rotation angle in degrees (0° - 360°).",
       "type": "float",
       "default": 0.0,
       "min": 0.0,
@@ -57,66 +57,66 @@
       }
     },
     "pos-x": {
-      "name": "Положение X (Screen %)",
-      "description": "Горизонтальная позиция на экране в долях от 0.0 (слева) до 1.0 (справа).",
+      "name": "Position X",
+      "description": "Horizontal position on screen (0.0 to 1.0).",
       "type": "float",
       "default": 0.85,
       "min": 0.0,
       "max": 1.0
     },
     "pos-y": {
-      "name": "Положение Y (Screen %)",
-      "description": "Вертикальная позиция на экране в долях от 0.0 (снизу) до 1.0 (сверху).",
+      "name": "Position Y",
+      "description": "Vertical position on screen (0.0 to 1.0).",
       "type": "float",
       "default": 0.85,
       "min": 0.0,
       "max": 1.0
     },
     "flip-x": {
-      "name": "Отразить по горизонтали",
-      "description": "Зеркальный поворот фото по горизонтали.",
+      "name": "Flip Horizontal",
+      "description": "Mirror the image horizontally.",
       "type": "bool",
       "default": false
     },
     "flip-y": {
-      "name": "Отразить по вертикали",
-      "description": "Зеркальный поворот фото по вертикали.",
+      "name": "Flip Vertical",
+      "description": "Mirror the image vertically.",
       "type": "bool",
       "default": false
     },
     "show-frame": {
-      "name": "Рамка HUD / Окно",
-      "description": "Отображать стильную темную рамку окна позади фото.",
+      "name": "HUD Frame",
+      "description": "Display a sleek dark window frame behind the image.",
       "type": "bool",
       "default": false
     },
     "hide-on-pause": {
-      "name": "Скрывать при паузе",
-      "description": "Скрывать фото при вызове меню паузы.",
+      "name": "Hide on Pause",
+      "description": "Hide image when pause menu is opened.",
       "type": "bool",
       "default": false
     },
     "hide-on-death": {
-      "name": "Скрывать при смерти",
-      "description": "Скрывать фото при гибели персонажа.",
+      "name": "Hide on Death",
+      "description": "Hide image when the player dies.",
       "type": "bool",
       "default": false
     },
     "practice-only": {
-      "name": "Только в практике",
-      "description": "Показывать фото исключительно во время тренировочного режима (Practice Mode).",
+      "name": "Practice Mode Only",
+      "description": "Show image only in practice mode.",
       "type": "bool",
       "default": false
     },
     "show-in-editor": {
-      "name": "Показывать в редакторе",
-      "description": "Отображать фото также и в редакторе уровней (удобно для создания артов по референсу).",
+      "name": "Show in Editor",
+      "description": "Display image in level editor for art references.",
       "type": "bool",
       "default": false
     },
     "z-order": {
-      "name": "Слой отображения (Z-Order)",
-      "description": "0: Позади уровня, 1: Под интерфейсом (над блоками), 2: Поверх всего интерфейса (HUD).",
+      "name": "Z-Order Layer",
+      "description": "0: Behind level, 1: Under UI, 2: Over UI (HUD).",
       "type": "int",
       "default": 2,
       "min": 0,

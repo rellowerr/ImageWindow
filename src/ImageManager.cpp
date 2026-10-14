@@ -232,7 +232,7 @@ bool ImageManager::pickAndImportImage() {
             auto const& opt = result.unwrap();
             if (opt.has_value()) {
                 if (this->importImage(opt.value())) {
-                    Notification::create("Фото успешно добавлено!", NotificationIcon::Success)->show();
+                    Notification::create("Image added successfully!", NotificationIcon::Success)->show();
                 }
             }
         }

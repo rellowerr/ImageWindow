@@ -1,10 +1,16 @@
 # Changelog
 
+## v1.0.1
+- Fixed slider crash in HUD settings.
+- Restructured pause menu button to appear only in PauseLayer as requested.
+- Added custom high-resolution mod logo and updated developer name to Rellower.
+- English UI labels for 100% compatibility with Geometry Dash bitmap fonts.
+
 ## v1.0.0
-- Начальный релиз ImageWindow!
-- Добавлена библиотека изображений с предпросмотром миниатюр.
-- Добавлен системный проводник файлов для добавления изображений (.png, .jpg, .jpeg, .bmp).
-- Добавлено интерактивное перетаскивание мышью (Drag Mode).
-- Добавлены настройки масштаба, прозрачности, угла поворота и зеркалирования.
-- Добавлена кнопка вызова окна настроек в меню паузы (`PauseLayer`).
-- Добавлены опции скрытия при паузе/смерти и поддержка редактора уровней.
+- Initial release of ImageWindow for Geometry Dash 2.2081 (Geode v5).
+- Image gallery with thumbnails and resolution details.
+- System file picker to import images (`.png`, `.jpg`, `.jpeg`, `.bmp`, `.webp`).
+- Interactive Drag Mode with live screen coordinate display.
+- Transform sliders (Scale, Opacity, Rotation, Flip X/Y).
+- Translucent HUD frame.
+- Practice mode filter, pause hide, death hide, and Z-Order selection.

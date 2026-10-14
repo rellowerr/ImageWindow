@@ -59,17 +59,17 @@ void ImageWindowPopup::setupTabs() {
     tabMenu->setPosition(ccp(m_size.width / 2.f, m_size.height - 48.f));
     m_mainLayer->addChild(tabMenu, 5);
 
-    auto sprLib = ButtonSprite::create("Библиотека", "goldFont.fnt", "GJ_button_01.png", 0.6f);
+    auto sprLib = ButtonSprite::create("Library", "goldFont.fnt", "GJ_button_01.png", 0.65f);
     m_tabBtnLibrary = CCMenuItemSpriteExtra::create(sprLib, this, menu_selector(ImageWindowPopup::onTabClicked));
     m_tabBtnLibrary->setTag(0);
     tabMenu->addChild(m_tabBtnLibrary);
 
-    auto sprTrans = ButtonSprite::create("Размер и HUD", "goldFont.fnt", "GJ_button_01.png", 0.6f);
+    auto sprTrans = ButtonSprite::create("HUD & Size", "goldFont.fnt", "GJ_button_01.png", 0.65f);
     m_tabBtnTransform = CCMenuItemSpriteExtra::create(sprTrans, this, menu_selector(ImageWindowPopup::onTabClicked));
     m_tabBtnTransform->setTag(1);
     tabMenu->addChild(m_tabBtnTransform);
 
-    auto sprSet = ButtonSprite::create("Настройки", "goldFont.fnt", "GJ_button_01.png", 0.6f);
+    auto sprSet = ButtonSprite::create("Settings", "goldFont.fnt", "GJ_button_01.png", 0.65f);
     m_tabBtnSettings = CCMenuItemSpriteExtra::create(sprSet, this, menu_selector(ImageWindowPopup::onTabClicked));
     m_tabBtnSettings->setTag(2);
     tabMenu->addChild(m_tabBtnSettings);
@@ -104,13 +104,13 @@ void ImageWindowPopup::updateTabButtons() {
     auto updateBtn = [](CCMenuItemSpriteExtra* btn, bool active, const char* text) {
         if (!btn) return;
         const char* bg = active ? "GJ_button_02.png" : "GJ_button_01.png";
-        auto spr = ButtonSprite::create(text, "goldFont.fnt", bg, 0.6f);
+        auto spr = ButtonSprite::create(text, "goldFont.fnt", bg, 0.65f);
         btn->setNormalImage(spr);
     };
 
-    updateBtn(m_tabBtnLibrary, m_currentTab == 0, "Библиотека");
-    updateBtn(m_tabBtnTransform, m_currentTab == 1, "Размер и HUD");
-    updateBtn(m_tabBtnSettings, m_currentTab == 2, "Настройки");
+    updateBtn(m_tabBtnLibrary, m_currentTab == 0, "Library");
+    updateBtn(m_tabBtnTransform, m_currentTab == 1, "HUD & Size");
+    updateBtn(m_tabBtnSettings, m_currentTab == 2, "Settings");
 }
 
 // ==========================================
@@ -122,15 +122,15 @@ void ImageWindowPopup::setupLibraryTab() {
     actionMenu->setPosition(ccp(m_size.width / 2.f, m_size.height - 80.f));
     m_libraryNode->addChild(actionMenu);
 
-    auto addSpr = ButtonSprite::create("+ Добавить фото", "goldFont.fnt", "GJ_button_02.png", 0.65f);
+    auto addSpr = ButtonSprite::create("+ Add Image", "goldFont.fnt", "GJ_button_02.png", 0.65f);
     auto addBtn = CCMenuItemSpriteExtra::create(addSpr, this, menu_selector(ImageWindowPopup::onAddImage));
     actionMenu->addChild(addBtn);
 
-    auto folderSpr = ButtonSprite::create("Папка с фото", "goldFont.fnt", "GJ_button_04.png", 0.65f);
+    auto folderSpr = ButtonSprite::create("Folder", "goldFont.fnt", "GJ_button_04.png", 0.65f);
     auto folderBtn = CCMenuItemSpriteExtra::create(folderSpr, this, menu_selector(ImageWindowPopup::onOpenFolder));
     actionMenu->addChild(folderBtn);
 
-    auto refSpr = ButtonSprite::create("Обновить", "goldFont.fnt", "GJ_button_01.png", 0.65f);
+    auto refSpr = ButtonSprite::create("Refresh", "goldFont.fnt", "GJ_button_01.png", 0.65f);
     auto refBtn = CCMenuItemSpriteExtra::create(refSpr, this, menu_selector(ImageWindowPopup::onRefreshLibrary));
     actionMenu->addChild(refBtn);
 
@@ -161,7 +161,7 @@ void ImageWindowPopup::refreshLibraryList() {
     auto activeName = ImageManager::get()->getActiveImageName();
 
     if (images.empty()) {
-        auto emptyLabel = CCLabelBMFont::create("В библиотеке пока нет изображений.\nНажмите '+ Добавить фото' или\nпоместите картинки в папку мода!", "bigFont.fnt");
+        auto emptyLabel = CCLabelBMFont::create("No images in library.\nClick '+ Add Image' to import\nor put files in mod images folder!", "bigFont.fnt");
         emptyLabel->setAlignment(kCCTextAlignmentCenter);
         emptyLabel->setScale(0.42f);
         emptyLabel->setPosition(ccp(195.f, 70.f));
@@ -203,7 +203,7 @@ void ImageWindowPopup::refreshLibraryList() {
                 float targetSize = 34.f;
                 float sx = targetSize / thumb->getContentSize().width;
                 float sy = targetSize / thumb->getContentSize().height;
-                thumb->setScale(std::min(sx, sy));
+                thumb->setScale(std::min<float>(sx, sy));
                 thumb->setPosition(ccp(26.f, itemY + itemHeight / 2.f));
                 content->addChild(thumb);
             }
@@ -239,9 +239,9 @@ void ImageWindowPopup::refreshLibraryList() {
         // Select button
         ButtonSprite* selSpr = nullptr;
         if (isActive) {
-            selSpr = ButtonSprite::create("Активно", "goldFont.fnt", "GJ_button_02.png", 0.55f);
+            selSpr = ButtonSprite::create("Active", "goldFont.fnt", "GJ_button_02.png", 0.6f);
         } else {
-            selSpr = ButtonSprite::create("Выбрать", "goldFont.fnt", "GJ_button_01.png", 0.55f);
+            selSpr = ButtonSprite::create("Select", "goldFont.fnt", "GJ_button_01.png", 0.6f);
         }
         auto selBtn = CCMenuItemSpriteExtra::create(selSpr, this, menu_selector(ImageWindowPopup::onSelectImage));
         selBtn->setPosition(ccp(300.f, itemY + itemHeight / 2.f));
@@ -273,7 +273,7 @@ void ImageWindowPopup::onOpenFolder(CCObject*) {
 void ImageWindowPopup::onRefreshLibrary(CCObject*) {
     ImageManager::get()->refreshImages();
     refreshLibraryList();
-    Notification::create("Библиотека обновлена", NotificationIcon::Info)->show();
+    Notification::create("Library refreshed", NotificationIcon::Info)->show();
 }
 
 void ImageWindowPopup::onSelectImage(CCObject* sender) {
@@ -282,7 +282,7 @@ void ImageWindowPopup::onSelectImage(CCObject* sender) {
     if (nameObj) {
         ImageManager::get()->setActiveImage(nameObj->getCString());
         refreshLibraryList();
-        Notification::create(fmt::format("Выбрано: {}", nameObj->getCString()), NotificationIcon::Success)->show();
+        Notification::create(fmt::format("Selected: {}", nameObj->getCString()), NotificationIcon::Success)->show();
     }
 }
 
@@ -294,14 +294,14 @@ void ImageWindowPopup::onDeleteImage(CCObject* sender) {
     std::string filename = nameObj->getCString();
 
     geode::createQuickPopup(
-        "Удаление",
-        fmt::format("Вы уверены, что хотите удалить \"{}\" из библиотеки?", filename),
-        "Отмена", "Удалить",
+        "Delete Image",
+        fmt::format("Are you sure you want to delete \"{}\"?", filename),
+        "Cancel", "Delete",
         [this, filename](FLAlertLayer*, bool btn2) {
             if (btn2) {
                 ImageManager::get()->deleteImage(filename);
                 this->refreshLibraryList();
-                Notification::create("Фото удалено", NotificationIcon::Info)->show();
+                Notification::create("Image deleted", NotificationIcon::Info)->show();
             }
         }
     );
@@ -316,7 +316,7 @@ void ImageWindowPopup::setupTransformTab() {
     m_transformNode->addChild(leftMenu);
 
     // Scale Slider
-    m_scaleLabel = CCLabelBMFont::create("Масштаб: 100%", "chatFont.fnt");
+    m_scaleLabel = CCLabelBMFont::create("Scale: 100%", "chatFont.fnt");
     m_scaleLabel->setScale(0.7f);
     m_scaleLabel->setPosition(ccp(0.f, 75.f));
     leftMenu->addChild(m_scaleLabel);
@@ -326,7 +326,7 @@ void ImageWindowPopup::setupTransformTab() {
     leftMenu->addChild(m_scaleSlider);
 
     // Opacity Slider
-    m_opacityLabel = CCLabelBMFont::create("Прозрачность: 100%", "chatFont.fnt");
+    m_opacityLabel = CCLabelBMFont::create("Opacity: 100%", "chatFont.fnt");
     m_opacityLabel->setScale(0.7f);
     m_opacityLabel->setPosition(ccp(0.f, 25.f));
     leftMenu->addChild(m_opacityLabel);
@@ -336,7 +336,7 @@ void ImageWindowPopup::setupTransformTab() {
     leftMenu->addChild(m_opacitySlider);
 
     // Rotation Slider
-    m_rotationLabel = CCLabelBMFont::create("Поворот: 0°", "chatFont.fnt");
+    m_rotationLabel = CCLabelBMFont::create("Rotation: 0 deg", "chatFont.fnt");
     m_rotationLabel->setScale(0.7f);
     m_rotationLabel->setPosition(ccp(0.f, -25.f));
     leftMenu->addChild(m_rotationLabel);
@@ -345,7 +345,7 @@ void ImageWindowPopup::setupTransformTab() {
     m_rotationSlider->setPosition(ccp(0.f, -48.f));
     leftMenu->addChild(m_rotationSlider);
 
-    // Toggles at bottom left
+    // Toggles at bottom
     auto togglesMenu = CCMenu::create();
     togglesMenu->setPosition(ccp(m_size.width / 2.f, 30.f));
     m_transformNode->addChild(togglesMenu);
@@ -357,7 +357,7 @@ void ImageWindowPopup::setupTransformTab() {
     m_frameToggler = CCMenuItemToggler::create(off1, on1, this, menu_selector(ImageWindowPopup::onToggleFrame));
     togglesMenu->addChild(m_frameToggler);
 
-    auto frameLabel = CCLabelBMFont::create("Рамка HUD", "chatFont.fnt");
+    auto frameLabel = CCLabelBMFont::create("HUD Frame", "chatFont.fnt");
     frameLabel->setScale(0.6f);
     togglesMenu->addChild(frameLabel);
 
@@ -391,7 +391,7 @@ void ImageWindowPopup::setupTransformTab() {
     rightMenu->setPosition(ccp(325.f, m_size.height / 2.f + 10.f));
     m_transformNode->addChild(rightMenu);
 
-    auto presetsTitle = CCLabelBMFont::create("Пресеты положения:", "goldFont.fnt");
+    auto presetsTitle = CCLabelBMFont::create("Presets:", "goldFont.fnt");
     presetsTitle->setScale(0.55f);
     presetsTitle->setPosition(ccp(325.f, m_size.height - 82.f));
     m_transformNode->addChild(presetsTitle);
@@ -422,11 +422,11 @@ void ImageWindowPopup::setupTransformTab() {
     bottomActionMenu->setPosition(ccp(325.f, 65.f));
     m_transformNode->addChild(bottomActionMenu);
 
-    auto dragSpr = ButtonSprite::create("Переместить мышью", "goldFont.fnt", "GJ_button_02.png", 0.6f);
+    auto dragSpr = ButtonSprite::create("Drag Mode", "goldFont.fnt", "GJ_button_02.png", 0.65f);
     auto dragBtn = CCMenuItemSpriteExtra::create(dragSpr, this, menu_selector(ImageWindowPopup::onOpenDragMode));
     bottomActionMenu->addChild(dragBtn);
 
-    auto resetSpr = ButtonSprite::create("Сброс", "goldFont.fnt", "GJ_button_06.png", 0.6f);
+    auto resetSpr = ButtonSprite::create("Reset", "goldFont.fnt", "GJ_button_06.png", 0.65f);
     auto resetBtn = CCMenuItemSpriteExtra::create(resetSpr, this, menu_selector(ImageWindowPopup::onResetTransform));
     bottomActionMenu->addChild(resetBtn);
 
@@ -442,53 +442,68 @@ void ImageWindowPopup::updateTransformControls() {
     bool flipX = Mod::get()->getSettingValue<bool>("flip-x");
     bool flipY = Mod::get()->getSettingValue<bool>("flip-y");
 
-    // Scale slider (0.1 .. 3.0) -> norm 0.0 .. 1.0
-    float normScale = (scale - 0.1f) / (3.0f - 0.1f);
-    m_scaleSlider->setValue(std::clamp(normScale, 0.0f, 1.0f));
-    m_scaleLabel->setString(fmt::format("Масштаб: {}%", static_cast<int>(std::round(scale * 100.f))).c_str());
+    if (m_scaleSlider) {
+        float normScale = (scale - 0.1f) / (3.0f - 0.1f);
+        m_scaleSlider->setValue(std::clamp(normScale, 0.0f, 1.0f));
+    }
+    if (m_scaleLabel) {
+        m_scaleLabel->setString(fmt::format("Scale: {:.0f}%", scale * 100.f).c_str());
+    }
 
-    // Opacity slider (0.05 .. 1.0)
-    float normOp = (opacity - 0.05f) / (1.0f - 0.05f);
-    m_opacitySlider->setValue(std::clamp(normOp, 0.0f, 1.0f));
-    m_opacityLabel->setString(fmt::format("Прозрачность: {}%", static_cast<int>(std::round(opacity * 100.f))).c_str());
+    if (m_opacitySlider) {
+        float normOp = (opacity - 0.05f) / (1.0f - 0.05f);
+        m_opacitySlider->setValue(std::clamp(normOp, 0.0f, 1.0f));
+    }
+    if (m_opacityLabel) {
+        m_opacityLabel->setString(fmt::format("Opacity: {:.0f}%", opacity * 100.f).c_str());
+    }
 
-    // Rotation slider (0 .. 360)
-    float normRot = rotation / 360.f;
-    m_rotationSlider->setValue(std::clamp(normRot, 0.0f, 1.0f));
-    m_rotationLabel->setString(fmt::format("Поворот: {}°", static_cast<int>(std::round(rotation))).c_str());
+    if (m_rotationSlider) {
+        float normRot = rotation / 360.f;
+        m_rotationSlider->setValue(std::clamp(normRot, 0.0f, 1.0f));
+    }
+    if (m_rotationLabel) {
+        m_rotationLabel->setString(fmt::format("Rotation: {:.0f} deg", rotation).c_str());
+    }
 
-    m_frameToggler->toggle(showFrame);
-    m_flipXToggler->toggle(flipX);
-    m_flipYToggler->toggle(flipY);
+    if (m_frameToggler) m_frameToggler->toggle(showFrame);
+    if (m_flipXToggler) m_flipXToggler->toggle(flipX);
+    if (m_flipYToggler) m_flipYToggler->toggle(flipY);
 }
 
-void ImageWindowPopup::onScaleSlider(CCObject* sender) {
-    auto slider = static_cast<Slider*>(sender);
-    float val = slider->getValue();
+void ImageWindowPopup::onScaleSlider(CCObject*) {
+    if (!m_scaleSlider) return;
+    float val = m_scaleSlider->getValue();
     float scale = 0.1f + val * (3.0f - 0.1f);
 
     Mod::get()->setSettingValue("scale", static_cast<double>(scale));
-    m_scaleLabel->setString(fmt::format("Масштаб: {}%", static_cast<int>(std::round(scale * 100.f))).c_str());
+    if (m_scaleLabel) {
+        m_scaleLabel->setString(fmt::format("Scale: {:.0f}%", scale * 100.f).c_str());
+    }
     ImageOverlay::updateAll();
 }
 
-void ImageWindowPopup::onOpacitySlider(CCObject* sender) {
-    auto slider = static_cast<Slider*>(sender);
-    float val = slider->getValue();
+void ImageWindowPopup::onOpacitySlider(CCObject*) {
+    if (!m_opacitySlider) return;
+    float val = m_opacitySlider->getValue();
     float opacity = 0.05f + val * (1.0f - 0.05f);
 
     Mod::get()->setSettingValue("opacity", static_cast<double>(opacity));
-    m_opacityLabel->setString(fmt::format("Прозрачность: {}%", static_cast<int>(std::round(opacity * 100.f))).c_str());
+    if (m_opacityLabel) {
+        m_opacityLabel->setString(fmt::format("Opacity: {:.0f}%", opacity * 100.f).c_str());
+    }
     ImageOverlay::updateAll();
 }
 
-void ImageWindowPopup::onRotationSlider(CCObject* sender) {
-    auto slider = static_cast<Slider*>(sender);
-    float val = slider->getValue();
+void ImageWindowPopup::onRotationSlider(CCObject*) {
+    if (!m_rotationSlider) return;
+    float val = m_rotationSlider->getValue();
     float rot = val * 360.f;
 
     Mod::get()->setSettingValue("rotation", static_cast<double>(rot));
-    m_rotationLabel->setString(fmt::format("Поворот: {}°", static_cast<int>(std::round(rot))).c_str());
+    if (m_rotationLabel) {
+        m_rotationLabel->setString(fmt::format("Rotation: {:.0f} deg", rot).c_str());
+    }
     ImageOverlay::updateAll();
 }
 
@@ -521,7 +536,7 @@ void ImageWindowPopup::onPresetPosition(CCObject* sender) {
         Mod::get()->setSettingValue("pos-x", static_cast<double>(px[tag]));
         Mod::get()->setSettingValue("pos-y", static_cast<double>(py[tag]));
         ImageOverlay::updateAll();
-        Notification::create("Позиция обновлена", NotificationIcon::Success)->show();
+        Notification::create("Position updated", NotificationIcon::Success)->show();
     }
 }
 
@@ -547,7 +562,7 @@ void ImageWindowPopup::onResetTransform(CCObject*) {
 
     updateTransformControls();
     ImageOverlay::updateAll();
-    Notification::create("Настройки сброшены", NotificationIcon::Info)->show();
+    Notification::create("Settings reset", NotificationIcon::Info)->show();
 }
 
 // ==========================================
@@ -574,23 +589,23 @@ void ImageWindowPopup::setupSettingsTab() {
         menu->addChild(lbl);
     };
 
-    createToggleRow("Включить ImageWindow", menu_selector(ImageWindowPopup::onToggleEnabled), m_enabledToggler, 60.f);
-    createToggleRow("Скрывать при паузе", menu_selector(ImageWindowPopup::onToggleHideOnPause), m_hideOnPauseToggler, 30.f);
-    createToggleRow("Скрывать при смерти", menu_selector(ImageWindowPopup::onToggleHideOnDeath), m_hideOnDeathToggler, 0.f);
-    createToggleRow("Только в практике", menu_selector(ImageWindowPopup::onTogglePracticeOnly), m_practiceOnlyToggler, -30.f);
-    createToggleRow("Показывать в редакторе", menu_selector(ImageWindowPopup::onToggleShowInEditor), m_showInEditorToggler, -60.f);
+    createToggleRow("Enable ImageWindow", menu_selector(ImageWindowPopup::onToggleEnabled), m_enabledToggler, 60.f);
+    createToggleRow("Hide on Pause", menu_selector(ImageWindowPopup::onToggleHideOnPause), m_hideOnPauseToggler, 30.f);
+    createToggleRow("Hide on Death", menu_selector(ImageWindowPopup::onToggleHideOnDeath), m_hideOnDeathToggler, 0.f);
+    createToggleRow("Practice Mode Only", menu_selector(ImageWindowPopup::onTogglePracticeOnly), m_practiceOnlyToggler, -30.f);
+    createToggleRow("Show in Editor", menu_selector(ImageWindowPopup::onToggleShowInEditor), m_showInEditorToggler, -60.f);
 
     // Right Column: Z-Order & File Info
     auto rightMenu = CCMenu::create();
     rightMenu->setPosition(ccp(330.f, 140.f));
     m_settingsNode->addChild(rightMenu);
 
-    auto zTitle = CCLabelBMFont::create("Слой отображения:", "goldFont.fnt");
+    auto zTitle = CCLabelBMFont::create("Layer (Z-Order):", "goldFont.fnt");
     zTitle->setScale(0.55f);
     zTitle->setPosition(ccp(0.f, 35.f));
     rightMenu->addChild(zTitle);
 
-    m_zOrderBtnSpr = ButtonSprite::create("Поверх UI (HUD)", "goldFont.fnt", "GJ_button_01.png", 0.65f);
+    m_zOrderBtnSpr = ButtonSprite::create("Over HUD", "goldFont.fnt", "GJ_button_01.png", 0.65f);
     auto zBtn = CCMenuItemSpriteExtra::create(m_zOrderBtnSpr, this, menu_selector(ImageWindowPopup::onCycleZOrder));
     zBtn->setPosition(ccp(0.f, 5.f));
     rightMenu->addChild(zBtn);
@@ -618,19 +633,19 @@ void ImageWindowPopup::updateSettingsControls() {
     m_showInEditorToggler->toggle(Mod::get()->getSettingValue<bool>("show-in-editor"));
 
     int64_t z = Mod::get()->getSettingValue<int64_t>("z-order");
-    const char* zStr = "Поверх UI (HUD)";
-    if (z == 0) zStr = "Позади уровня";
-    else if (z == 1) zStr = "Под интерфейсом";
+    const char* zStr = "Over HUD";
+    if (z == 0) zStr = "Behind Level";
+    else if (z == 1) zStr = "Under UI";
     m_zOrderBtnSpr->setString(zStr);
 
     auto activeName = ImageManager::get()->getActiveImageName();
     if (activeName.empty()) {
-        m_activeFileInfoLabel->setString("Активное фото:\n[Не выбрано]");
+        m_activeFileInfoLabel->setString("Active Image:\n[None Selected]");
     } else {
         if (activeName.length() > 18) {
             activeName = activeName.substr(0, 15) + "...";
         }
-        m_activeFileInfoLabel->setString(fmt::format("Активное фото:\n{}", activeName).c_str());
+        m_activeFileInfoLabel->setString(fmt::format("Active Image:\n{}", activeName).c_str());
     }
 }
 
@@ -667,5 +682,5 @@ void ImageWindowPopup::onCycleZOrder(CCObject*) {
     Mod::get()->setSettingValue("z-order", z);
 
     updateSettingsControls();
-    Notification::create("Слой изменен (требуется перезаход в уровень)", NotificationIcon::Info)->show();
+    Notification::create("Layer changed (re-enter level)", NotificationIcon::Info)->show();
 }

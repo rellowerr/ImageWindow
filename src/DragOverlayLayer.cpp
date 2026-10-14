@@ -38,13 +38,13 @@ bool DragOverlayLayer::init(std::function<void()> onCloseCallback) {
         this->addChild(bg, -1);
     }
 
-    // Top instruction label
-    auto titleLabel = CCLabelBMFont::create("Перетаскивание изображения", "bigFont.fnt");
+    // Top instruction labels
+    auto titleLabel = CCLabelBMFont::create("Drag & Drop Image", "bigFont.fnt");
     titleLabel->setScale(0.6f);
     titleLabel->setPosition(ccp(m_winSize.width / 2, m_winSize.height - 28.f));
     this->addChild(titleLabel, 10);
 
-    auto hintLabel = CCLabelBMFont::create("Зажмите мышью и перемещайте в любую точку экрана", "chatFont.fnt");
+    auto hintLabel = CCLabelBMFont::create("Click and drag to position anywhere on screen", "chatFont.fnt");
     hintLabel->setScale(0.75f);
     hintLabel->setColor({ 200, 220, 255 });
     hintLabel->setPosition(ccp(m_winSize.width / 2, m_winSize.height - 52.f));
@@ -94,13 +94,13 @@ bool DragOverlayLayer::init(std::function<void()> onCloseCallback) {
     this->addChild(menu, 15);
 
     // Save button (top right)
-    auto saveSpr = ButtonSprite::create("Сохранить", "goldFont.fnt", "GJ_button_02.png", 0.75f);
+    auto saveSpr = ButtonSprite::create("Save", "goldFont.fnt", "GJ_button_02.png", 0.75f);
     auto saveBtn = CCMenuItemSpriteExtra::create(saveSpr, this, menu_selector(DragOverlayLayer::onSave));
-    saveBtn->setPosition(ccp(m_winSize.width - 60.f, m_winSize.height - 30.f));
+    saveBtn->setPosition(ccp(m_winSize.width - 55.f, m_winSize.height - 30.f));
     menu->addChild(saveBtn);
 
     // Cancel button (top left)
-    auto cancelSpr = ButtonSprite::create("Отмена", "goldFont.fnt", "GJ_button_06.png", 0.75f);
+    auto cancelSpr = ButtonSprite::create("Cancel", "goldFont.fnt", "GJ_button_06.png", 0.75f);
     auto cancelBtn = CCMenuItemSpriteExtra::create(cancelSpr, this, menu_selector(DragOverlayLayer::onCancel));
     cancelBtn->setPosition(ccp(55.f, m_winSize.height - 30.f));
     menu->addChild(cancelBtn);

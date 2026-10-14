@@ -2,8 +2,6 @@
 #include <Geode/modify/PlayLayer.hpp>
 #include <Geode/modify/PauseLayer.hpp>
 #include <Geode/modify/LevelEditorLayer.hpp>
-#include <Geode/modify/EditorPauseLayer.hpp>
-#include <Geode/modify/MenuLayer.hpp>
 #include <Geode/binding/ButtonSprite.hpp>
 #include <Geode/binding/EditorUI.hpp>
 
@@ -86,7 +84,7 @@ class $modify(IWPlayLayer, PlayLayer) {
     }
 };
 
-// Hook PauseLayer to provide a convenient in-level button
+// Hook PauseLayer to provide the palette settings button exclusively in the pause menu
 class $modify(IWPauseLayer, PauseLayer) {
     void customSetup() {
         PauseLayer::customSetup();
@@ -103,7 +101,7 @@ class $modify(IWPauseLayer, PauseLayer) {
         });
         btn->setID("image-window-btn"_spr);
 
-        // Find standard menu or create fallback
+        // Add to right or bottom button menu
         auto menu = this->getChildByID("right-button-menu");
         if (!menu) {
             menu = this->getChildByID("bottom-button-menu");
@@ -133,65 +131,6 @@ class $modify(IWLevelEditorLayer, LevelEditorLayer) {
             } else {
                 this->addChild(overlay, 100);
             }
-        }
-
-        return true;
-    }
-};
-
-// Hook EditorPauseLayer to add button in editor pause menu
-class $modify(IWEditorPauseLayer, EditorPauseLayer) {
-    void customSetup() {
-        EditorPauseLayer::customSetup();
-
-        CCNode* btnSpr = CCSprite::createWithSpriteFrameName("GJ_paintBtn_001.png");
-        if (!btnSpr) {
-            btnSpr = ButtonSprite::create("ImgWin", "goldFont.fnt", "GJ_button_01.png", 0.7f);
-        } else {
-            btnSpr->setScale(0.85f);
-        }
-
-        auto btn = CCMenuItemExt::createSpriteExtra(btnSpr, [](auto) {
-            ImageWindowPopup::create()->show();
-        });
-        btn->setID("image-window-btn"_spr);
-
-        auto menu = this->getChildByID("bottom-menu");
-        if (!menu) {
-            menu = this->getChildByID("actions-menu");
-        }
-        if (!menu) {
-            menu = CCMenu::create();
-            auto winSize = CCDirector::sharedDirector()->getWinSize();
-            menu->setPosition(ccp(winSize.width - 35.f, 35.f));
-            this->addChild(menu, 10);
-        }
-
-        menu->addChild(btn);
-        menu->updateLayout();
-    }
-};
-
-// Hook MenuLayer to add access from main menu
-class $modify(IWMenuLayer, MenuLayer) {
-    bool init() {
-        if (!MenuLayer::init()) return false;
-
-        auto bottomMenu = this->getChildByID("bottom-menu");
-        if (bottomMenu) {
-            CCNode* btnSpr = CCSprite::createWithSpriteFrameName("GJ_paintBtn_001.png");
-            if (!btnSpr) {
-                btnSpr = ButtonSprite::create("ImgWin", "goldFont.fnt", "GJ_button_01.png", 0.7f);
-            } else {
-                btnSpr->setScale(0.85f);
-            }
-
-            auto btn = CCMenuItemExt::createSpriteExtra(btnSpr, [](auto) {
-                ImageWindowPopup::create()->show();
-            });
-            btn->setID("image-window-btn"_spr);
-            bottomMenu->addChild(btn);
-            bottomMenu->updateLayout();
         }
 
         return true;
